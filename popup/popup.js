@@ -7,6 +7,9 @@ function init(){
             if(isBlurred){
                 blurSwitchEle.checked = true;
                 blurRangeEle.disabled = false;
+                chrome.storage.sync.get("blurValue", (blurValue)=>{
+                    blurRangeEle.value = blurValue.blurValue;
+                });
             }
             else{
                 blurRangeEle.disabled = true;
@@ -15,6 +18,7 @@ function init(){
     }
 
     blurSwitchEle.addEventListener("click", switchClickHandler);
+    blurRangeEle.addEventListener("input", blurSliderInputChangeHandler);
 }
 
 function switchClickHandler(event){
@@ -41,8 +45,29 @@ function switchClickHandler(event){
       });
 }
 
+function blurSliderInputChangeHandler(event){
+    var rangeEle = event.target;
+
+    if(!rangeEle.disabled){
+        setBlurVaueState(rangeEle.value);
+    }
+
+    chrome.tabs.query({}, function(tabs) {
+        for(var i=0; i<tabs.length; i++){
+            console.log("message pop script");
+            chrome.tabs.sendMessage(tabs[i].id, {blurValue: rangeEle.value}, function(response) {
+                console.log("message pop script 2");;
+              });
+        }
+      });
+}
+
 function setIsBlurredState(blurred){
     chrome.storage.sync.set({'isBlurred':blurred});
+}
+
+function setBlurVaueState(value){
+    chrome.storage.sync.set({'blurValue':value});
 }
 
 function toggleBlurSliderState(){

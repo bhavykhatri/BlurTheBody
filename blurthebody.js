@@ -1,27 +1,42 @@
 function init(){
     chrome.storage.sync.get("isBlurred" , ({isBlurred})=>{
         if(isBlurred){
-            blurTheBody();
+            chrome.storage.sync.get("blurValue", (blurValue)=>{
+                blurTheBody(blurValue.blurValue);
+            });
         }
     });
 
     chrome.runtime.onMessage.addListener(
         function(request, sender, sendResponse) {
           if (request.blurred === "true"){
-            blurTheBody();
+            chrome.storage.sync.get("blurValue", (blurValue)=>{
+                blurTheBody(blurValue.blurValue);
+            });
           }
           else{
               reset();
           }
             
         }
-      );
+    );
+
+    chrome.runtime.onMessage.addListener(
+        function(request, sender, sendResponse) {
+            if (request.blurValue !== undefined){
+                console.log("message contetn script");
+                chrome.storage.sync.get("blurValue", (blurValue)=>{
+                    blurTheBody(blurValue.blurValue);
+                });
+            }
+        }
+    );
       
 
 }
 
-function blurTheBody(){
-    document.body.style.filter = "blur(8px)";
+function blurTheBody(val){
+    document.body.style.filter = "blur(" + val+"px)";
 }
 
 function reset(){
