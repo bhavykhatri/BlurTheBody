@@ -1,5 +1,3 @@
-console.log("content script ssent");
-
 function init(){
     chrome.storage.sync.get("isBlurred" , ({isBlurred})=>{
         if(isBlurred){
