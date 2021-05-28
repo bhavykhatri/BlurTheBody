@@ -9,11 +9,26 @@
             <input class="form-check-input" type="checkbox" id="blur-switch">
             <label class="form-check-label blur_label" for="blur-switch">Blur the web page</label>
           </div>
-        <!-- <div class="custom-control custom-switch blur_wrapper">
-            <input type="checkbox" class="custom-control-input" id="blur-switch">
-            <label class="custom-control-label blur_label" for="blur-switch">Blur the web page</label>
-        </div> -->
         
+        
+        <div class="range-container">
+            <div class="range">
+                <input type="range" class="form-range" min="0" max="10" step="0.5"id="range-slider" />
+            </div>
+            <div class="blur-range-label">
+                <div class="blur-range-value min">
+                    0px
+                </div>
+                <div class="blur-range-value mid">
+                    5px
+                </div>
+                <div class="blur-range-value max">
+                    10px
+                </div>
+            </div>
+        </div>
+        
+
         <script src="popup.js"></script>
     </body>
 </html>
