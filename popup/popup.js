@@ -54,9 +54,8 @@ function blurSliderInputChangeHandler(event){
 
     chrome.tabs.query({}, function(tabs) {
         for(var i=0; i<tabs.length; i++){
-            console.log("message pop script");
             chrome.tabs.sendMessage(tabs[i].id, {blurValue: rangeEle.value}, function(response) {
-                console.log("message pop script 2");;
+
               });
         }
       });

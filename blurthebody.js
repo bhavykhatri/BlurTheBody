@@ -24,7 +24,6 @@ function init(){
     chrome.runtime.onMessage.addListener(
         function(request, sender, sendResponse) {
             if (request.blurValue !== undefined){
-                console.log("message contetn script");
                 chrome.storage.sync.get("blurValue", (blurValue)=>{
                     blurTheBody(blurValue.blurValue);
                 });
